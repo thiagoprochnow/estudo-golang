@@ -21,3 +21,20 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  
+  db:
+    image: postgres:13.4
+    container_name: db
+    environment:
+      POSTGRES_DB: estudo-go
+      POSTGRES_USER: go
+      POSTGRES_PASSWORD: go123
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+      
+volumes:
+  db-data:

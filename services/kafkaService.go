@@ -2,8 +2,10 @@ package services
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
+	"estudo.com/dtos"
 	"estudo.com/helpers"
 	"github.com/segmentio/kafka-go"
 )
@@ -38,6 +40,9 @@ func readMessage() string {
 			panic("could not read message " + err.Error())
 		}
 		// after receiving the message, log its value
-		fmt.Println("received: ", string(msg.Value))
+		var dto dtos.TransactionDTO
+		json.Unmarshal(msg.Value, &dto)
+		fmt.Println("name: ", dto.Name)
+		fmt.Println("value: ", dto.Value)
 	}
 }
