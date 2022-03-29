@@ -7,6 +7,7 @@ import (
 
 	"estudo.com/controllers"
 	"estudo.com/helpers"
+	"estudo.com/services"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
@@ -17,8 +18,9 @@ func hello(w http.ResponseWriter, req *http.Request) {
 func main() {
 	var serverPort = helpers.GetDefaultPort()
 	fmt.Println("Server port: ", serverPort)
+	go services.GetKafkaContent()
 
-	http.HandleFunc("/kafka", controllers.Get_kafka)
+	http.HandleFunc("/transaction", controllers.GetTransaction)
 
 	http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 }
